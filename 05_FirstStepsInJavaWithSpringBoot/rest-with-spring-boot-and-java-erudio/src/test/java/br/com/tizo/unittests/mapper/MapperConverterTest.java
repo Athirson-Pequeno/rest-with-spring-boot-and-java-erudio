@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import br.com.tizo.data.vo.v1.PersonVO;
-import br.com.tizo.mapper.Mapper;
+import br.com.tizo.mapper.ModelMapperUtil;
 import br.com.tizo.model.Person;
 import br.com.tizo.unittests.mapper.mocks.MockPerson;
 
@@ -23,7 +23,7 @@ public class MapperConverterTest {
 
     @Test
     public void parseEntityToVOTest() {
-        PersonVO output = Mapper.parseObject(inputObject.mockEntity(), PersonVO.class);
+        PersonVO output = ModelMapperUtil.parseObject(inputObject.mockEntity(), PersonVO.class);
         assertEquals(Long.valueOf(0L), output.getId());
         assertEquals("First Name Test0", output.getFirstName());
         assertEquals("Last Name Test0", output.getLastName());
@@ -33,7 +33,7 @@ public class MapperConverterTest {
 
     @Test
     public void parseEntityListToVOListTest() {
-        List<PersonVO> outputList = Mapper.parseListObjects(inputObject.mockEntityList(), PersonVO.class);
+        List<PersonVO> outputList = ModelMapperUtil.parseListObjects(inputObject.mockEntityList(), PersonVO.class);
         PersonVO outputZero = outputList.get(0);
         
         assertEquals(Long.valueOf(0L), outputZero.getId());
@@ -61,7 +61,7 @@ public class MapperConverterTest {
 
     @Test
     public void parseVOToEntityTest() {
-        Person output = Mapper.parseObject(inputObject.mockVO(), Person.class);
+        Person output = ModelMapperUtil.parseObject(inputObject.mockVO(), Person.class);
         assertEquals(Long.valueOf(0L), output.getId());
         assertEquals("First Name Test0", output.getFirstName());
         assertEquals("Last Name Test0", output.getLastName());
@@ -71,7 +71,7 @@ public class MapperConverterTest {
 
     @Test
     public void parserVOListToEntityListTest() {
-        List<Person> outputList = Mapper.parseListObjects(inputObject.mockVOList(), Person.class);
+        List<Person> outputList = ModelMapperUtil.parseListObjects(inputObject.mockVOList(), Person.class);
         Person outputZero = outputList.get(0);
         
         assertEquals(Long.valueOf(0L), outputZero.getId());

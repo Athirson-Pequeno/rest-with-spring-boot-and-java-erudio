@@ -1,13 +1,13 @@
 package br.com.tizo.services;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 import br.com.tizo.data.vo.v1.PersonVO;
+import br.com.tizo.data.vo.v2.PersonVOV2;
 import br.com.tizo.exceptions.ResourceNotFoundException;
-import br.com.tizo.mapper.Mapper;
+import br.com.tizo.mapper.ModelMapperUtil;
+import br.com.tizo.mapper.custom.PersonMapper;
 import br.com.tizo.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,16 +21,19 @@ public class PersonServices {
 
 	@Autowired
 	PersonRepository repository;
+
+	@Autowired
+	PersonMapper mapper;
 	
 	public List<PersonVO> findAll() {
 		
-		return Mapper.parseListObjects(repository.findAll(), PersonVO.class);
+		return ModelMapperUtil.parseListObjects(repository.findAll(), PersonVO.class);
 	}
 	
 	
 	public PersonVO findById(Long id) {
 		logger.info("FINDING ONE PERSON!");
-		return Mapper.parseObject(repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this id.")), PersonVO.class);
+		return ModelMapperUtil.parseObject(repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this id.")), PersonVO.class);
 	}
 
 	
@@ -38,7 +41,20 @@ public class PersonServices {
 		
 		logger.info("Creating one person!");
 
-		return Mapper.parseObject(repository.save(Mapper.parseObject(person, Person.class)), PersonVO.class);
+		var entity = ModelMapperUtil.parseObject(person, Person.class);
+		var vo = ModelMapperUtil.parseObject(repository.save(entity), PersonVO.class);
+
+		return vo;
+	}
+
+	public PersonVOV2 createV2(PersonVOV2 person) {
+
+		logger.info("Creating one person v2!");
+
+		var entity = mapper.convertVoToEntity(person);
+		var vo = mapper.convertEntityToVo(repository.save(entity));
+
+		return vo;
 	}
 
 	public PersonVO update(PersonVO person) {
@@ -51,7 +67,7 @@ public class PersonServices {
 		entity.setGender(person.getGender());
 		entity.setAddress(person.getAddress());
 
-		return Mapper.parseObject(repository.save(Mapper.parseObject(entity, Person.class)), PersonVO.class);
+		return ModelMapperUtil.parseObject(repository.save(ModelMapperUtil.parseObject(entity, Person.class)), PersonVO.class);
 	}
 
 	public void delete(Long id) {
@@ -61,4 +77,6 @@ public class PersonServices {
 		repository.delete(entity);
 
 	}
+
+
 }
