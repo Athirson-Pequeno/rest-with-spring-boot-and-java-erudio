@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import br.com.tizo.controllers.PersonController;
 import br.com.tizo.data.vo.v1.PersonVO;
 import br.com.tizo.data.vo.v2.PersonVOV2;
+import br.com.tizo.exceptions.RequiredObjectIsNullException;
 import br.com.tizo.exceptions.ResourceNotFoundException;
 import br.com.tizo.mapper.ModelMapperUtil;
 import br.com.tizo.mapper.custom.PersonMapper;
@@ -28,7 +29,7 @@ public class PersonServices {
 	@Autowired
 	PersonMapper mapper;
 	
-	public List<PersonVO> findAll() throws Exception {
+	public List<PersonVO> findAll() {
 		
 		var persons = ModelMapperUtil.parseListObjects(repository.findAll(), PersonVO.class);
 
@@ -44,7 +45,7 @@ public class PersonServices {
 	}
 	
 	
-	public PersonVO findById(Long id) throws Exception {
+	public PersonVO findById(Long id){
 		logger.info("FINDING ONE PERSON!");
 
 		var entity = ModelMapperUtil.parseObject(repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this id.")), PersonVO.class);
@@ -56,8 +57,9 @@ public class PersonServices {
 	}
 
 	
-	public PersonVO create(PersonVO person) throws Exception {
-		
+	public PersonVO create(PersonVO person) {
+
+		if(person==null) throw new RequiredObjectIsNullException();
 		logger.info("Creating one person!");
 
 		var entity = ModelMapperUtil.parseObject(person, Person.class);
@@ -68,6 +70,8 @@ public class PersonServices {
 
 	public PersonVOV2 createV2(PersonVOV2 person) {
 
+		if(person==null) throw new RequiredObjectIsNullException();
+
 		logger.info("Creating one person v2!");
 
 		var entity = mapper.convertVoToEntity(person);
@@ -75,7 +79,8 @@ public class PersonServices {
 		return vo;
 	}
 
-	public PersonVO update(PersonVO person) throws Exception {
+	public PersonVO update(PersonVO person) {
+		if(person==null) throw new RequiredObjectIsNullException();
 		
 		logger.info("Updating one person!");
 		var entity = repository.findById(person.getKey()).orElseThrow(() -> new ResourceNotFoundException("No records found for this id."));
