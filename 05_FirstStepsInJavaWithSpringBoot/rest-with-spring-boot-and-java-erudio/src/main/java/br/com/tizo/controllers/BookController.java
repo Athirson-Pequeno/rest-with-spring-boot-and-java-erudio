@@ -1,8 +1,8 @@
 package br.com.tizo.controllers;
 
+import br.com.tizo.data.vo.v1.BookVO;
 import br.com.tizo.data.vo.v1.PersonVO;
-import br.com.tizo.data.vo.v2.PersonVOV2;
-import br.com.tizo.services.PersonServices;
+import br.com.tizo.services.BookServices;
 import br.com.tizo.util.MediaTypeUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -17,19 +17,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/person/v1")
-@Tag(name = "People", description = "Endpoints fot Managing People")
-public class PersonController {
+@RequestMapping("/api/book/v1")
+@Tag(name = "Books", description = "Endpoints fot Managing Books")
+public class BookController {
 
     @Autowired
-    private PersonServices service;
-    //private PersonServices service =  new PersonServices();
+    BookServices bookServices;
 
     @GetMapping(produces = {MediaTypeUtil.APPLICATION_JSON, MediaTypeUtil.APPLICATION_XML, MediaTypeUtil.APPLICATION_YAML})
     @Operation(
-            summary = "Finds all Peoples",
-            description = "Finds all Peoples",
-            tags = {"People"},
+            summary = "Finds all Books",
+            description = "Finds all Books",
+            tags = {"Books"},
             responses = {
                     @ApiResponse(
                             description = "Success",
@@ -48,15 +47,15 @@ public class PersonController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public List<PersonVO> findAll() {
-        return service.findAll();
+    public List<BookVO> findAll(){
+        return bookServices.findAll();
     }
 
     @GetMapping(value = "/{id}", produces = {MediaTypeUtil.APPLICATION_JSON, MediaTypeUtil.APPLICATION_XML, MediaTypeUtil.APPLICATION_YAML})
     @Operation(
-            summary = "Finds a Person",
-            description = "Finds a Person",
-            tags = {"People"},
+            summary = "Finds a Book",
+            description = "Finds a Book",
+            tags = {"Books"},
             responses = {
                     @ApiResponse(
                             description = "Success",
@@ -69,17 +68,18 @@ public class PersonController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public PersonVO findById(@PathVariable(value = "id") Long id) {
-        return service.findById(id);
+    public BookVO findById(@PathVariable(value = "id") Integer id) {
+
+        return bookServices.findById(id);
     }
 
     @PostMapping(
             produces = {MediaTypeUtil.APPLICATION_JSON, MediaTypeUtil.APPLICATION_XML, MediaTypeUtil.APPLICATION_YAML},
             consumes = {MediaTypeUtil.APPLICATION_JSON, MediaTypeUtil.APPLICATION_XML, MediaTypeUtil.APPLICATION_YAML})
     @Operation(
-            summary = "Adds a new Person",
-            description = "Adds a new Person by passing in a JSON, XML or YMl representation of the person",
-            tags = {"People"},
+            summary = "Adds a new Book",
+            description = "Adds a new Book by passing in a JSON, XML or YMl representation of the book",
+            tags = {"Books"},
             responses = {
                     @ApiResponse(
                             description = "Success",
@@ -90,39 +90,17 @@ public class PersonController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public PersonVO create(@RequestBody PersonVO person) {
-        return service.create(person);
-    }
-
-    @PostMapping(
-            value = "/v2",
-            produces = {MediaTypeUtil.APPLICATION_JSON, MediaTypeUtil.APPLICATION_XML, MediaTypeUtil.APPLICATION_YAML},
-            consumes = {MediaTypeUtil.APPLICATION_JSON, MediaTypeUtil.APPLICATION_XML, MediaTypeUtil.APPLICATION_YAML})
-    @Operation(
-            summary = "Adds a new Person",
-            description = "Adds a new Person by passing in a JSON, XML or YMl representation of the person",
-            tags = {"People"},
-            responses = {
-                    @ApiResponse(
-                            description = "Success",
-                            responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = PersonVOV2.class))),
-                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
-            }
-    )
-    public PersonVOV2 createV2(@RequestBody PersonVOV2 person) {
-        return service.createV2(person);
+    public BookVO create(@RequestBody BookVO book) {
+        return bookServices.create(book);
     }
 
     @PutMapping(
             produces = {MediaTypeUtil.APPLICATION_JSON, MediaTypeUtil.APPLICATION_XML, MediaTypeUtil.APPLICATION_YAML},
             consumes = {MediaTypeUtil.APPLICATION_JSON, MediaTypeUtil.APPLICATION_XML, MediaTypeUtil.APPLICATION_YAML})
     @Operation(
-            summary = "Updates a Person",
-            description = "Updates a Person by passing in a JSON, XML or YMl representation of the person",
-            tags = {"People"},
+            summary = "Updates a Book",
+            description = "Updates a Book by passing in a JSON, XML or YMl representation of the book",
+            tags = {"Books"},
             responses = {
                     @ApiResponse(
                             description = "Updated",
@@ -134,15 +112,16 @@ public class PersonController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public PersonVO update(@RequestBody PersonVO person) {
-        return service.update(person);
+    public BookVO update(@RequestBody BookVO book) {
+        return bookServices.update(book);
     }
+
 
     @DeleteMapping(value = "/{id}")
     @Operation(
-            summary = "Delete a Person",
-            description = "Delete a Person by passing in a JSON, XML or YMl representation of the person",
-            tags = {"People"},
+            summary = "Delete a Book",
+            description = "Delete a Book by passing in a JSON, XML or YMl representation of the book",
+            tags = {"Books"},
             responses = {
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -151,8 +130,9 @@ public class PersonController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
-        service.delete(id);
+    public ResponseEntity<?> delete(@PathVariable(value = "id") Integer id) {
+        bookServices.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
+
