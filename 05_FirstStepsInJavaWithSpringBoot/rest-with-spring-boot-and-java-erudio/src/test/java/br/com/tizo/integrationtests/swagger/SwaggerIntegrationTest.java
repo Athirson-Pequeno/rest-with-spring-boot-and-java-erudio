@@ -1,12 +1,12 @@
 package br.com.tizo.integrationtests.swagger;
 
+import br.com.tizo.config.TestConfigs;
 import br.com.tizo.integrationtests.testcontainers.AbstractIntegrationTest;
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import static io.restassured.RestAssured.given;
-import br.com.tizo.config.TestConfigs;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class SwaggerIntegrationTest extends AbstractIntegrationTest {

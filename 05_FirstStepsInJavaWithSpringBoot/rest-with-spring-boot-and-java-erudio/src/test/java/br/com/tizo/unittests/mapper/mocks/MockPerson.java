@@ -1,10 +1,10 @@
 package br.com.tizo.unittests.mapper.mocks;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.tizo.data.vo.v1.PersonVO;
 import br.com.tizo.model.Person;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MockPerson {
 

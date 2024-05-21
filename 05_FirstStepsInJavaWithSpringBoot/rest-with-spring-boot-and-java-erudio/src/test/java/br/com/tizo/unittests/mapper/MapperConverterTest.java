@@ -1,16 +1,15 @@
 package br.com.tizo.unittests.mapper;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import br.com.tizo.data.vo.v1.PersonVO;
 import br.com.tizo.mapper.ModelMapperUtil;
 import br.com.tizo.model.Person;
 import br.com.tizo.unittests.mapper.mocks.MockPerson;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MapperConverterTest {
     

@@ -1,8 +1,5 @@
 package br.com.tizo.services;
 
-import java.util.List;
-import java.util.logging.Logger;
-
 import br.com.tizo.controllers.PersonController;
 import br.com.tizo.data.vo.v1.PersonVO;
 import br.com.tizo.data.vo.v2.PersonVOV2;
@@ -10,13 +7,16 @@ import br.com.tizo.exceptions.RequiredObjectIsNullException;
 import br.com.tizo.exceptions.ResourceNotFoundException;
 import br.com.tizo.mapper.ModelMapperUtil;
 import br.com.tizo.mapper.custom.PersonMapper;
+import br.com.tizo.model.Person;
 import br.com.tizo.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.stereotype.Service;
 
-import br.com.tizo.model.Person;
+import java.util.List;
+import java.util.logging.Logger;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class PersonServices {

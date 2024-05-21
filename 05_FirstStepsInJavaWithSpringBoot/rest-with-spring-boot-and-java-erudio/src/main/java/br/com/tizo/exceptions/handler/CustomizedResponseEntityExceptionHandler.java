@@ -1,9 +1,9 @@
 package br.com.tizo.exceptions.handler;
 
-import java.util.Date;
-
+import br.com.tizo.exceptions.ExceptionResponse;
 import br.com.tizo.exceptions.InvalidJwtAuthenticationException;
 import br.com.tizo.exceptions.RequiredObjectIsNullException;
+import br.com.tizo.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import br.com.tizo.exceptions.ExceptionResponse;
-import br.com.tizo.exceptions.ResourceNotFoundException;
+import java.util.Date;
 
 @ControllerAdvice
 @RestController

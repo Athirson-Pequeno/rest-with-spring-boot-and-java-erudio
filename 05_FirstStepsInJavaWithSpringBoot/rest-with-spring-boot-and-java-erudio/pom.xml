@@ -74,6 +74,7 @@
             <artifactId>jackson-dataformat-yaml</artifactId>
         </dependency>
 
+
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
@@ -112,6 +113,7 @@
             <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
