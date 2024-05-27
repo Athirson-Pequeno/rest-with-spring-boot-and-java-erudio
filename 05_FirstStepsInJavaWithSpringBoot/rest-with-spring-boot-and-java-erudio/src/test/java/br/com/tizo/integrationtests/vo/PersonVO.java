@@ -1,6 +1,7 @@
 package br.com.tizo.integrationtests.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serial;
@@ -17,6 +18,7 @@ public class PersonVO implements Serializable {
     private String last_name;
     private String address;
     private String gender;
+    private Boolean enabled;
 
     public PersonVO() {}
 
@@ -28,6 +30,13 @@ public class PersonVO implements Serializable {
         this.id = id;
     }
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public String getAddress() {
         return address;
@@ -65,11 +74,11 @@ public class PersonVO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof PersonVO personVO)) return false;
-        return Objects.equals(id, personVO.id) && Objects.equals(first_name, personVO.first_name) && Objects.equals(last_name, personVO.last_name) && Objects.equals(address, personVO.address) && Objects.equals(gender, personVO.gender);
+        return Objects.equals(id, personVO.id) && Objects.equals(first_name, personVO.first_name) && Objects.equals(last_name, personVO.last_name) && Objects.equals(address, personVO.address) && Objects.equals(gender, personVO.gender) && Objects.equals(enabled, personVO.enabled);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, first_name, last_name, address, gender);
+        return Objects.hash(id, first_name, last_name, address, gender, enabled);
     }
 }

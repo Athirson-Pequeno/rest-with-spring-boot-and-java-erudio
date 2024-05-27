@@ -207,6 +207,7 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
         assertNotNull(persistedPerson.getLast_name());
         assertNotNull(persistedPerson.getGender());
         assertNotNull(persistedPerson.getAddress());
+		assertTrue(persistedPerson.getEnabled());
 
         assertEquals(person.getId(), persistedPerson.getId());
         assertEquals("Lambu", persistedPerson.getFirst_name());
@@ -217,8 +218,53 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 
     }
 
+	@Test
+	@Order(4)
+	public void disablePersonById() throws IOException {
+		mockPerson();
+
+
+		var persistedPerson = given().spec(specification)
+				.config(
+						RestAssuredConfig
+								.config()
+								.encoderConfig(EncoderConfig.encoderConfig()
+										.encodeContentTypeAs(
+												TestConfigs.CONTENT_TYPE_YAML,
+												ContentType.TEXT)))
+				.contentType(TestConfigs.CONTENT_TYPE_YAML)
+				.accept(TestConfigs.CONTENT_TYPE_YAML)
+				.pathParam("id", person.getId())
+				.when()
+				.patch("{id}")
+				.then()
+				.statusCode(200)
+				.extract()
+				.body()
+				.as(PersonVO.class, objectMapper);
+
+		person = persistedPerson;
+
+		assertTrue(persistedPerson.getId() > 0);
+
+		assertNotNull(persistedPerson.getId());
+		assertNotNull(persistedPerson.getFirst_name());
+		assertNotNull(persistedPerson.getLast_name());
+		assertNotNull(persistedPerson.getGender());
+		assertNotNull(persistedPerson.getAddress());
+		assertFalse(persistedPerson.getEnabled());
+
+		assertEquals(person.getId(), persistedPerson.getId());
+		assertEquals("Lambu", persistedPerson.getFirst_name());
+		assertEquals("Caatinga", persistedPerson.getLast_name());
+		assertEquals("Sousa, Paraiba, Brasil", persistedPerson.getAddress());
+		assertEquals("Macho", persistedPerson.getGender());
+
+
+	}
+
     @Test
-    @Order(4)
+    @Order(5)
     public void testDelete() throws IOException {
 
 
@@ -329,6 +375,7 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
         person.setLast_name("Caolho");
         person.setAddress("Sousa, Paraiba, Brasil");
         person.setGender("Macho");
+		person.setEnabled(true);
 
     }
 

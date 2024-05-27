@@ -1,5 +1,7 @@
 package br.com.tizo.data.vo.v2;
 
+import jakarta.persistence.Column;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -14,7 +16,16 @@ public class PersonVOV2 implements Serializable {
 	private String address;
 	private String gender;
 	private Date birthday;
+	private Boolean enabled;
 	public PersonVOV2() {}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	public Date getBirthday() {
 		return birthday;
@@ -68,11 +79,11 @@ public class PersonVOV2 implements Serializable {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (!(o instanceof PersonVOV2 that)) return false;
-        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(gender, that.gender) && Objects.equals(birthday, that.birthday);
+        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(gender, that.gender) && Objects.equals(birthday, that.birthday) && Objects.equals(enabled, that.enabled);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, firstName, lastName, address, gender, birthday);
+		return Objects.hash(id, firstName, lastName, address, gender, birthday, enabled);
 	}
 }

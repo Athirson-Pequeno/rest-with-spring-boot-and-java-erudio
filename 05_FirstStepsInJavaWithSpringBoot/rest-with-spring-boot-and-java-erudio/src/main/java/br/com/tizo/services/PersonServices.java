@@ -11,6 +11,7 @@ import br.com.tizo.model.Person;
 import br.com.tizo.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -47,6 +48,20 @@ public class PersonServices {
 	
 	public PersonVO findById(Long id){
 		logger.info("FINDING ONE PERSON!");
+
+		var entity = ModelMapperUtil.parseObject(repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this id.")), PersonVO.class);
+
+		PersonVO vo = ModelMapperUtil.parseObject(entity, PersonVO.class) ;
+		vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+
+		return vo;
+	}
+
+	@Transactional//deve ser usado quando fazemos nossas proprias querys para gerenciar o banco de dados
+	public PersonVO disablePerson(Long id){
+		logger.info("DISABLE ONE PERSON!");
+
+		repository.disablePerson(id);
 
 		var entity = ModelMapperUtil.parseObject(repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this id.")), PersonVO.class);
 
@@ -103,6 +118,7 @@ public class PersonServices {
 		repository.delete(entity);
 
 	}
+
 
 
 }

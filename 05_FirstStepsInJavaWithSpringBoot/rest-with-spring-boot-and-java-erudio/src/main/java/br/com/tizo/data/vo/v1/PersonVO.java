@@ -2,6 +2,7 @@ package br.com.tizo.data.vo.v1;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.persistence.Column;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
@@ -19,8 +20,17 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
     private String lastName;
     private String address;
     private String gender;
+    private Boolean enabled;
 
     public PersonVO() {
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Long getKey() {
@@ -64,21 +74,15 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(address, firstName, gender, key, lastName);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PersonVO personVO)) return false;
+        if (!super.equals(o)) return false;
+        return Objects.equals(key, personVO.key) && Objects.equals(firstName, personVO.firstName) && Objects.equals(lastName, personVO.lastName) && Objects.equals(address, personVO.address) && Objects.equals(gender, personVO.gender) && Objects.equals(enabled, personVO.enabled);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        PersonVO other = (PersonVO) obj;
-        return Objects.equals(address, other.address) && Objects.equals(firstName, other.firstName)
-                && Objects.equals(gender, other.gender) && Objects.equals(key, other.key)
-                && Objects.equals(lastName, other.lastName);
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), key, firstName, lastName, address, gender, enabled);
     }
 }
