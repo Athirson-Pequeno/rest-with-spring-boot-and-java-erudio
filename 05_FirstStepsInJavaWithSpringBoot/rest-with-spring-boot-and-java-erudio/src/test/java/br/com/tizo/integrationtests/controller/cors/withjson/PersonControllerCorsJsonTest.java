@@ -97,13 +97,13 @@ public class PersonControllerCorsJsonTest extends AbstractIntegrationTest {
         assertTrue(createdPerson.getId() > 0);
 
         assertNotNull(createdPerson.getId());
-        assertNotNull(createdPerson.getFirst_name());
-        assertNotNull(createdPerson.getLast_name());
+        assertNotNull(createdPerson.getFirstName());
+        assertNotNull(createdPerson.getLastName());
         assertNotNull(createdPerson.getGender());
         assertNotNull(createdPerson.getAddress());
 
-        assertEquals("Lambu", createdPerson.getFirst_name());
-        assertEquals("Caolho", createdPerson.getLast_name());
+        assertEquals("Lambu", createdPerson.getFirstName());
+        assertEquals("Caolho", createdPerson.getLastName());
         assertEquals("Sousa, Paraiba, Brasil", createdPerson.getAddress());
         assertEquals("Macho", createdPerson.getGender());
 
@@ -155,14 +155,14 @@ public class PersonControllerCorsJsonTest extends AbstractIntegrationTest {
         assertTrue(persistedPerson.getId() > 0);
 
         assertNotNull(persistedPerson.getId());
-        assertNotNull(persistedPerson.getFirst_name());
-        assertNotNull(persistedPerson.getLast_name());
+        assertNotNull(persistedPerson.getFirstName());
+        assertNotNull(persistedPerson.getLastName());
         assertNotNull(persistedPerson.getGender());
         assertNotNull(persistedPerson.getAddress());
 
         assertEquals(person.getId(), persistedPerson.getId());
-        assertEquals("Lambu", persistedPerson.getFirst_name());
-        assertEquals("Caolho", persistedPerson.getLast_name());
+        assertEquals("Lambu", persistedPerson.getFirstName());
+        assertEquals("Caolho", persistedPerson.getLastName());
         assertEquals("Sousa, Paraiba, Brasil", persistedPerson.getAddress());
         assertEquals("Macho", persistedPerson.getGender());
 
@@ -194,8 +194,8 @@ public class PersonControllerCorsJsonTest extends AbstractIntegrationTest {
 
     private void mockPerson() {
 
-        person.setFirst_name("Lambu");
-        person.setLast_name("Caolho");
+        person.setFirstName("Lambu");
+        person.setLastName("Caolho");
         person.setAddress("Sousa, Paraiba, Brasil");
         person.setGender("Macho");
         person.setEnabled(true);
