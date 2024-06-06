@@ -27,7 +27,7 @@ jobs:
         
     - name: Build with Maven
       working-directory: ./05_FirstStepsInJavaWithSpringBoot/rest-with-spring-boot-and-java-erudio
-      run: mvn clean package -DskipTests
+      run: mvn clean package
 
     - name: Docker Compose Build
       working-directory: ./05_FirstStepsInJavaWithSpringBoot
